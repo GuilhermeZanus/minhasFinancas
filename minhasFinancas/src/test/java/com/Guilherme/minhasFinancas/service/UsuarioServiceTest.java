@@ -8,11 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.Guilherme.minhasFinancas.model.entity.Usuario;
 //
 import com.Guilherme.minhasFinancas.model.repository.UsuarioRepository;
 import com.Guilherme.minhasFinancas.service.impl.UsuarioServiceImpl;
@@ -25,11 +24,12 @@ public class UsuarioServiceTest {
 	
 	UsuarioService service;
 	
+	@MockBean
 	UsuarioRepository repository;
 	
 	@BeforeEach
 	public void setUp() {
-		repository = Mockito.mock(UsuarioRepository.class);
+		
 		service = new UsuarioServiceImpl(repository);
 	}
 	

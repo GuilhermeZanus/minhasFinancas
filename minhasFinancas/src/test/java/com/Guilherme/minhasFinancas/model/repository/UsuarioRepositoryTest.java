@@ -3,7 +3,8 @@ package com.Guilherme.minhasFinancas.model.repository;
 
 import java.util.Optional;
 
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Assertions;
+//import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,9 @@ public class UsuarioRepositoryTest {
 		boolean result = repository.existsByEmail("usuario@email.com");
 		
 		//verificação
-		Assertions.assertThat(result).isTrue();
+//		Assertions.assertThat(result).isTrue();
+		Assertions.assertTrue(result);
+		
 	}
 	
 	
@@ -53,7 +56,8 @@ public class UsuarioRepositoryTest {
 		boolean result = repository.existsByEmail("usuario@email.com");
 		
 		//verificação
-		Assertions.assertThat(result).isFalse();
+//		Assertions.assertThat(result).isFalse();
+		Assertions.assertFalse(result);
 	}
 	
 	@Test
@@ -67,7 +71,8 @@ public class UsuarioRepositoryTest {
 		//verificação
 		Long id = usuarioSalvo.getId();
 		
-		Assertions.assertThat(id).isNotNull();		
+//		Assertions.assertThat(id).isNotNull();	
+		Assertions.assertNotNull(id);
 	}
 	
 	@Test
@@ -80,7 +85,8 @@ public class UsuarioRepositoryTest {
 		
 		//verificacao
 		Optional<Usuario> result = repository.findByEmail("usuario@email.com");
-		Assertions.assertThat(result.isPresent()).isTrue();
+//		Assertions.assertThat(result.isPresent()).isTrue();
+		Assertions.assertTrue(result.isPresent());
 		
 	}
 	
@@ -92,7 +98,8 @@ public class UsuarioRepositoryTest {
 		
 		//verificacao
 		Optional<Usuario> result = repository.findByEmail("usuario@email.com");
-		Assertions.assertThat(result.isPresent()).isFalse();
+//		Assertions.assertThat(result.isPresent()).isFalse();
+		Assertions.assertFalse(result.isPresent());
 		
 	}
 

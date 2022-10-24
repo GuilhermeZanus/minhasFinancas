@@ -2,12 +2,13 @@ package com.Guilherme.minhasFinancas.service;
 
 import java.util.Optional;
 
-import org.assertj.core.api.Assertions;
+//import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 
 //
 //
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.Guilherme.minhasFinancas.exception.ErroAutenticacao;
 import com.Guilherme.minhasFinancas.model.entity.Usuario;
 //
 import com.Guilherme.minhasFinancas.model.repository.UsuarioRepository;
@@ -68,11 +70,14 @@ public class UsuarioServiceTest {
 		
 		Mockito.when(repository.findByEmail(email)).thenReturn(Optional.of(usuario));
 		
+		
 		//acao
 		Usuario result = service.autenticar(email, senha);
 		
 		//verificacao
-		Assertions.assertThat(result).isNotNull();
+//		Assertions.assertThat(result).isNotNull();
+		Assertions.assertNotNull(result);
+		Assertions.assertDoesNotThrow(()->service.autenticar(email, senha));
 		
 	}
 	
@@ -84,7 +89,14 @@ public class UsuarioServiceTest {
 		Mockito.when(repository.findByEmail(Mockito.anyString())).thenReturn(Optional.empty());
 		
 		//acao
-		service.autenticar("email@email.com", "senha");
+		//Usuario result = service.autenticar("email@email.com", "senha");
+		
+		//verificação
+		
+		ErroAutenticacao erroAutenticacao = Assertions.assertThrows(ErroAutenticacao.class, 
+				()->service.autenticar("email@email.com", "senha"));
+		
+		Assertions.assertEquals("Usuario não encontrado para o email informado", erroAutenticacao.getMessage());
 
 	}
 	
